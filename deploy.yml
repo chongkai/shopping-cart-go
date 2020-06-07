@@ -1,0 +1,21 @@
+apiVersion: cloudstate.io/v1alpha1
+kind: StatefulService
+metadata:
+  name: shopping-cart
+spec:
+  datastore:
+    name: my-postgres-store
+  containers:
+    - image: shoppingcart:local
+---
+apiVersion: cloudstate.io/v1alpha1
+kind: StatefulStore
+metadata:
+  name: my-postgres-store
+spec:
+  type: Postgres
+  deployment: Unmanaged
+  config:
+    service: postgresql.default.svc.cluster.local
+    credentialsFromSecret:
+      name: postgres-credentials
