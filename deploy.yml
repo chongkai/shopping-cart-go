@@ -6,7 +6,10 @@ spec:
   datastore:
     name: my-postgres-store
   containers:
-    - image: shoppingcart:local
+    - image: shoppingcart:local-2
+      env:
+      - name: HOST
+        value: localhost
 ---
 apiVersion: cloudstate.io/v1alpha1
 kind: StatefulStore
@@ -16,6 +19,8 @@ spec:
   type: Postgres
   deployment: Unmanaged
   config:
-    service: postgresql.default.svc.cluster.local
-    credentialsFromSecret:
-      name: postgres-credentials
+    service: postgresql.cart.svc.cluster.local
+    credentials:
+      database: postgres
+      username: postgres
+      password: mntb8PVk0K

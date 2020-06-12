@@ -34,7 +34,7 @@ func main() {
 		},
 		cloudstate.DescriptorConfig{
 			Service: "shopping-cart.proto",
-		}.AddDomainDescriptor("domain.proto"),
+		}.AddDomainDescriptor("domain/domain.proto"),
 	)
 	if err != nil {
 		log.Fatalf("CloudState failed to register entity: %v", err)

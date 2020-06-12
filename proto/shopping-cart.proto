@@ -2,15 +2,30 @@ syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 import "cloudstate/entity_key.proto";
+import "google/api/annotations.proto";
 
 package example.shoppingcart;
 
 option go_package = "example/shoppingcart";
 
 service ShoppingCartService {
-    rpc AddItem(AddLineItem) returns (google.protobuf.Empty);
-    rpc RemoveItem(RemoveLineItem) returns (google.protobuf.Empty);
-    rpc GetCart(GetShoppingCart) returns (Cart);
+    rpc AddItem(AddLineItem) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+          post: "/carts"
+          body: "*"
+      };
+    };
+    rpc RemoveItem(RemoveLineItem) returns (google.protobuf.Empty) {
+      option (google.api.http) = {
+          delete: "/carts"
+          body: "*"
+      };
+    };
+    rpc GetCart(GetShoppingCart) returns (Cart) {
+      option (google.api.http) = {
+          get: "/carts/{user_id}"
+      };
+    };
 }
 
 message AddLineItem {
